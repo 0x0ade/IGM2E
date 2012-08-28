@@ -28,10 +28,6 @@ public class Options {
 		addProp("vol_sfx", "1.0");
 		addProp("vol_bgm", "0.5");
 		addProp("gfx_vsync", "false");
-		addProp("gfx_red", "1.0");
-		addProp("gfx_green", "1.0");
-		addProp("gfx_blue", "1.0");
-		addProp("gfx_alpha", "1.0");
 		addProp("menus_fancy", "true");
 		
 		for (Key key : IGM2E.keys.getAll()) {

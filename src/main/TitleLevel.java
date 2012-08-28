@@ -269,10 +269,6 @@ public class TitleLevel extends Level {
 			public MenuSlider[] sliders = new MenuSlider[] {
 					new MenuSlider("Fancy Menus", 0, 1, 1, "menus_fancy", true),
 					new MenuSlider("V-Sync", 0, 1, 1, "gfx_vsync", true),
-					new MenuSlider("Red", "gfx_red", false),
-					new MenuSlider("Green", "gfx_green", false),
-					new MenuSlider("Blue", "gfx_blue", false),
-					new MenuSlider("Alpha", "gfx_alpha", false)
 			};
 			
 			@Override
@@ -284,13 +280,6 @@ public class TitleLevel extends Level {
 					Options.set(sliders[item].option, (sliders[item].getValue()==sliders[item].maxval)+"");
 					break;
 				case 3:
-				case 4:
-				case 5:
-				case 6:
-					sliders[item].setValue(100);
-					Options.set(sliders[item].option, (sliders[item].getValue())+"");
-					break;
-				case 7:
 					menu = menus.get("options");
 					break;
 				default:
@@ -306,13 +295,9 @@ public class TitleLevel extends Level {
 					switch (item+1) {
 					case 1:
 					case 2:
-					case 3:
-					case 4:
-					case 5:
-					case 6:
 						sliders[item].subtract();
 						break;
-					case 7:
+					case 3:
 						break;
 					default:
 						break;
@@ -323,13 +308,9 @@ public class TitleLevel extends Level {
 					switch (item+1) {
 					case 1:
 					case 2:
-					case 3:
-					case 4:
-					case 5:
-					case 6:
 						sliders[item].add();
 						break;
-					case 7:
+					case 3:
 						break;
 					default:
 						break;
@@ -339,13 +320,12 @@ public class TitleLevel extends Level {
 			
 			@Override
 			public String[] getList() {
-				return new String[] {sliders[0].getMenuBoolean(), sliders[1].getMenuBoolean(), sliders[2].getMenuValue(),
-						sliders[3].getMenuValue(), sliders[4].getMenuValue(), sliders[5].getMenuValue(), "Back"};
+				return new String[] {sliders[0].getMenuBoolean(), sliders[1].getMenuBoolean(), "Back"};
 			}
 
 			@Override
 			public int getMaxItems() {
-				return 7;
+				return 3;
 			}
 
 			@Override

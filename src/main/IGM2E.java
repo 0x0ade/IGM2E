@@ -277,14 +277,6 @@ public class IGM2E {
 		renderOverlay();
 		
 		mouse.render();
-		
-		renderer.glColor4f(Options.getAsFloat("gfx_red"),
-				Options.getAsFloat("gfx_green"),
-				Options.getAsFloat("gfx_blue"),
-				Options.getAsFloat("gfx_alpha"));
-		
-		
-		
 	}
 
 	private static void render() {

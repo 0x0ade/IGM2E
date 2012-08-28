@@ -111,14 +111,19 @@ public final class Resources {
 	}
 	
 	public static String getJarPath() {
-		String path = RES.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		String decodedPath = "";
 		try {
-			decodedPath = URLDecoder.decode(path, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
+			String path = IGM2E.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+			String decodedPath = "";
+			try {
+				decodedPath = URLDecoder.decode(path, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			return decodedPath;
+		} catch (Exception e) {
 			e.printStackTrace();
+			return "";
 		}
-		return decodedPath;
 	}
 	
 	public static String getJarFolderPath() {
