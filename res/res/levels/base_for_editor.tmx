@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="cave" tilewidth="16" tileheight="16">
+  <image source="tiles/cave.png" width="256" height="16"/>
+ </tileset>
+ <tileset firstgid="17" name="cave_grass" tilewidth="16" tileheight="16">
+  <image source="tiles/cave_grass.png" width="256" height="16"/>
+ </tileset>
+ <tileset firstgid="33" name="entities" tilewidth="16" tileheight="16">
+  <image source="tiles/entities.png" width="128" height="128"/>
+  <tile id="0">
+   <properties>
+    <property name="isEntity" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="97" name="cave_bg" tilewidth="16" tileheight="16">
+  <image source="tiles/cave_bg.png" width="256" height="16"/>
+ </tileset>
+ <tileset firstgid="113" name="cave2" tilewidth="16" tileheight="16">
+  <image source="tiles/cave2.png" width="256" height="16"/>
+ </tileset>
+ <layer name="bg" width="32" height="32">
+  <properties>
+   <property name="type" value="bg"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3NsQ0AIAwDwYybCrF/FQpWSKC4k9z6IwCAl/bZavzP29D/sw8AUwqKL1U/ABAAAA==
+  </data>
+ </layer>
+ <layer name="tiles" width="32" height="32">
+  <properties>
+   <property name="type" value="tile"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC9VU2wrCMAwN6IPo0P2B3+ibD0P76a7QQSlJm6RpNgOHdvRyck6azQAwCxGIeW1f752Suzyh8aKlxUr/P3hGYVqxpHFCvrG5lY8f4Mcrm1869Oa4K/nfQh4qLwn/lsMJ8JosCaP85wZVGwv9nNhqE3bil+i38D++h1uGUe+fG5j+4Mhf6808j9gz1wH8Z8D/kaP7royaDyN8L6PVB48V3zSW86cBJH1wVASDc9w7JFzavCQ5tzhq69R5jS+eddN4o+Xq8XdPz8p91Lne/L319+aErR1Rg0c9uD55+RN5fnV1mJIAEAAA
+  </data>
+ </layer>
+ <layer name="ents" width="32" height="32" opacity="0.54">
+  <properties>
+   <property name="type" value="entity"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OAQkAAAwDoFV5/5KPMQaawAQA9lw7AAAw5gEBFhRfABAAAA==
+  </data>
+ </layer>
+</map>

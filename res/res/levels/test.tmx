@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="16" tileheight="16">
+ <properties>
+  <property name="background" value="cave_16"/>
+  <property name="bgm" value="level1"/>
+ </properties>
+ <tileset firstgid="1" name="cave" tilewidth="16" tileheight="16">
+  <image source="tiles/cave.png" width="256" height="16"/>
+ </tileset>
+ <tileset firstgid="17" name="cave_grass" tilewidth="16" tileheight="16">
+  <image source="tiles/cave_grass.png" width="256" height="16"/>
+ </tileset>
+ <tileset firstgid="33" name="entities" tilewidth="16" tileheight="16">
+  <image source="tiles/entities.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="97" name="cave_bg" tilewidth="16" tileheight="16">
+  <image source="tiles/cave_bg.png" width="256" height="16"/>
+ </tileset>
+ <tileset firstgid="113" name="cave2" tilewidth="16" tileheight="16">
+  <image source="tiles/cave2.png" width="256" height="16"/>
+ </tileset>
+ <layer name="bg" width="32" height="32">
+  <properties>
+   <property name="type" value="bg"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3NoQ0AIAwAwY5bRdhf1SBYoAVxl7z+CADglX1ajY+8Pv5//QFgUgEmsjYUABAAAA==
+  </data>
+ </layer>
+ <layer name="tiles" width="32" height="32">
+  <properties>
+   <property name="type" value="tile"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC81U0QrCMAwM6IPo0P2B3+iD4MOm/XQttFBGsuaS1i1wrNva3OXSdiSiEUQQxmvzanNqOTW5rPDktnixnFd7t2rs6Vlvv4cfpvQcmHdurOHReP0mfTyK8clRb4mrkf8F8kjaEP6s4UB8T6YExAvEf21IvfH6r43cm0Dt/dcEUn8L/+N+uBTouf80wdXPcffuv6QhPvPZOXfgPxJ/RyI1PxvokHzQ8Me1s5N/7RzcEj7COCTcHUDv5z0iNFinzYFwWXUhmmsca/+967fqm8UbK9eW/nj4lvOkddx3pKZ/1+/V5K1372jVu2DM6dX+BcO62SsAEAAA
+  </data>
+ </layer>
+ <layer name="ents" width="32" height="32" opacity="0.54">
+  <properties>
+   <property name="type" value="entity"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OwQkAMAgAMVcR99+xU1RRkv/BRQDAPjk98Fk1dwDAfQ+pfzi5ABAAAA==
+  </data>
+ </layer>
+</map>
