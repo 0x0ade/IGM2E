@@ -90,7 +90,6 @@ public class IGM2E {
 	public static short framecount = 0;
 	
 	public static final String build = "1 beta 1";
-	public static final String build_engine = "1 beta 3";
 	
 	public static final String name = "IGM2E Base";
 	public static final String name_short = "IGM2EBASE";

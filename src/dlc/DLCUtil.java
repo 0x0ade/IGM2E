@@ -61,7 +61,7 @@ public class DLCUtil {
 			IDLCBase iexc = (IDLCBase) i;
 			name = iexc.name();
 			String version = iexc.version();
-			String canrun = iexc.canRun(IGM2E.name, IGM2E.build, IGM2E.build_engine, dlcs);
+			String canrun = iexc.canRun(IGM2E.name, IGM2E.build, dlcs);
 			System.out.println(name+" "+version+"\nCan this DLC run ?");
 			System.out.println(canrun);
 			if (canrun.startsWith("No")) {

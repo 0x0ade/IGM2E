@@ -28,7 +28,7 @@ public interface IDLCBase {
 	 * @param loadedlist List of already loaded ExClasses
 	 * @return "Yes" if can run , "Yes, ..." if needs notification and "No" or "No, ..." if can not run .
 	 */
-	public String canRun(String name, String build, String buildEngine, ArrayList<IDLCBase> loadedlist);
+	public String canRun(String name, String build, ArrayList<IDLCBase> loadedlist);
 	
 	/**
 	 * Inits the DLC , should not start any tick-like threads because 
