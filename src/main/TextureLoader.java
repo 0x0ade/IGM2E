@@ -51,7 +51,7 @@ public class TextureLoader {
 				for (int x = 0; x < all.getWidth(); x += w) {
 					BufferedImage bi = all.getSubimage(x, y, w, h);
 					TextureBank.addImage(savename+"_"+iy+"_"+ix, bi);
-					Texture t = BufferedImageUtil.getTexture("PNG", bi);
+					Texture t = TextureUtil.convert(bi);
 					TextureBank.addTexture(savename+"_"+iy+"_"+ix, t);
 					
 					ix++;
@@ -73,7 +73,7 @@ public class TextureLoader {
 				for (int x = 0; x < all.getWidth(); x += w) {
 					BufferedImage bi = all.getSubimage(x, y, w, h);
 					TextureBank.addImage(savename+"_"+i, bi);
-					Texture t = BufferedImageUtil.getTexture("PNG", bi);
+					Texture t = TextureUtil.convert(bi);
 					TextureBank.addTexture(savename+"_"+i, t);
 					
 					i++;
@@ -90,7 +90,7 @@ public class TextureLoader {
 			BufferedImage bi = ImageIO.read(is);
 			bi = bi.getSubimage(x, y, w, h);
 			TextureBank.addImage(savename, bi);
-			Texture t = BufferedImageUtil.getTexture("PNG", bi);
+			Texture t = TextureUtil.convert(bi);
 			TextureBank.addTexture(savename, t);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,7 +102,7 @@ public class TextureLoader {
 			InputStream is = Resources.getResourceAsStream(filename);
 			BufferedImage bi = ImageIO.read(is);
 			TextureBank.addImage(savename, bi);
-			Texture t = BufferedImageUtil.getTexture("PNG", bi);
+			Texture t = TextureUtil.convert(bi);
 			TextureBank.addTexture(savename, t);
 		} catch (Exception e) {
 			e.printStackTrace();

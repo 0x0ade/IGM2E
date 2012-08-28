@@ -198,7 +198,7 @@ public class IGM2E {
 			}
 			try {
 				Thread.sleep(2);
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			if (shouldRender) {
@@ -211,7 +211,7 @@ public class IGM2E {
 			
 			if (System.currentTimeMillis() - lastTimer1 > 1000) {
 				lastTimer1 += 1000;
-				Display.setTitle(name+" (FPS:"+frames+")"+"(Ticks:"+ticks+")");
+				Display.setTitle(name+" (FPS:"+frames+") "+"(Ticks:"+ticks+")");
 				frames = 0;
 				ticks = 0;
 				shouldRender = true;
@@ -573,7 +573,7 @@ public class IGM2E {
 		String relative = "/res/sounds/"+name+".wav";
 		try {
 			Sound s = SoundBank.getSound(name);
-			s.playAt(1, Options.getAsFloat("vol_sound") * Options.getAsFloat("vol_sfx"), (x-sound_x)/4, (y-sound_y)/4, 0);
+			s.playAt(1, Options.getAsFloat("vol_sound") * Options.getAsFloat("vol_sfx"), (x-sound_x)/16, (y-sound_y)/16, 0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -581,12 +581,12 @@ public class IGM2E {
 	
 	public static void playBGM(String name) {
 		try {
+			songname = name;
+			savegame.song = name;
 			Music m = SoundBank.getMusic(name);
 			m.addListener(mlist);
 			m.loop(1.0f, Options.getAsFloat("vol_sound") * Options.getAsFloat("vol_bgm"));
 			bgm = m;
-			songname = name;
-			savegame.song = name;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

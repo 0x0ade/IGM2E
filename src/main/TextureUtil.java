@@ -102,7 +102,7 @@ public class TextureUtil {
 		
 		BufferedImage bi = colorImage(c, w, h);
 		
-		Texture t = BufferedImageUtil.getTexture("PNG", bi);
+		Texture t = TextureUtil.convert(bi);
 		TextureBank.addTexture("color_"+c+"_"+w+"_"+h, t);
 		return t;
 	}
@@ -130,7 +130,7 @@ public class TextureUtil {
 		
 		BufferedImage bi = gradientImage(c1, c2, w, h, dir);
 		
-		Texture t = BufferedImageUtil.getTexture("PNG", bi);
+		Texture t = TextureUtil.convert(bi);
 		TextureBank.addTexture("grad_"+c1+"_"+c2+"_"+w+"_"+h+"_"+dir, t);
 		return t;
 	}
@@ -233,7 +233,7 @@ public class TextureUtil {
 		
 		BufferedImage bi = shadeImage(c, w, h);
 		
-		Texture t = BufferedImageUtil.getTexture("PNG", bi);
+		Texture t = TextureUtil.convert(bi);
 		TextureBank.addTexture("shade_"+c+"_"+w+"_"+h, t);
 		return t;
 	}

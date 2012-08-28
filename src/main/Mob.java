@@ -40,6 +40,7 @@ public abstract class Mob extends Entity {
 		aijump = true;
 		aijump2 = false;
 		aichangedir = false;
+		aiothers = new ArrayList<Mob>();
 		
 		for (Tile t : l.tiles) {
 			checkAI(t);
@@ -73,8 +74,8 @@ public abstract class Mob extends Entity {
 		
 		int ex = e.x;
 		int ey = e.y;
-		int ew = (int) e.getTexture().getWidth();
-		int eh = (int) e.getTexture().getHeight();
+		int ew = (int) e.getTexture().getImageWidth();
+		int eh = (int) e.getTexture().getImageHeight();
 		
 		checkAI(e, ex, ey, ew, eh, false);
 	}
@@ -87,10 +88,11 @@ public abstract class Mob extends Entity {
 	public int checkw2 = 16;
 	public int checkh = 16*2;
 	public int checkh2 = 16;
+	public ArrayList<Mob> aiothers = new ArrayList<Mob>();
 	
 	public void checkAI(GameObject o, int ox, int oy, int ow, int oh, boolean canpass) {
-		int w = (int) getTexture().getTextureWidth();
-		int h = (int) getTexture().getTextureHeight();
+		int w = (int) getTexture().getImageWidth();
+		int h = (int) getTexture().getImageHeight();
 		
 		boolean addw = (donespeed>=0);
 		
@@ -128,6 +130,14 @@ public abstract class Mob extends Entity {
 		if (erx.intersects(or)) {
 			if (!canpass) {
 				if (aijump) {
+					if (o instanceof Mob) {
+						if (((Mob)o).aiothers.contains(this)) {
+							aichangedir = true;
+							return;
+						} else {
+							aiothers.add((Mob)o);
+						}
+ 					}
 					aijump2 = true;
 					aijumping = true;
 				} else if (!aijumping) {
