@@ -211,7 +211,7 @@ public class IGM2E {
 			
 			if (System.currentTimeMillis() - lastTimer1 > 1000) {
 				lastTimer1 += 1000;
-				Display.setTitle(name+" (FPS:"+frames+") "+"(Ticks:"+ticks+")");
+				Display.setTitle(name+" (FPS:"+frames+") (Ticks:"+ticks+")");
 				frames = 0;
 				ticks = 0;
 				shouldRender = true;
