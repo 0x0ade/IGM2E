@@ -35,7 +35,7 @@ public class TextFactory {
 		  int h1 = g.getFontMetrics().getHeight();
 		  int h = h1 + 8;
 		  if (w1 <= 4 || w == 0) {
-			  w1 = g.getFont().getSize() * 2;
+			  w1 = g.getFont().getSize() * 4;
 			  w = w1 * s.length();
 		  }
 		  g.dispose();
