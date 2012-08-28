@@ -31,7 +31,7 @@ public class TextFactory {
 			  g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		  g.setFont(f);
 		  int w1 = g.getFontMetrics().getWidths()[g.getFont().getSize()] + 4;
-		  int w = w1 * s.length();
+		  int w = w1 * (s.length() + 2);
 		  int h1 = g.getFontMetrics().getHeight();
 		  int h = h1 + 8;
 		  if (w1 <= 4 || w == 0) {
