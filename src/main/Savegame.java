@@ -103,7 +103,7 @@ public class Savegame implements Serializable {
 	}
 
 	public void saveGame(String fileName) throws IOException {
-		if (IGM2E.bgm == null) {
+		if (IGM2E.bgm != null) {
 			songpos = IGM2E.bgm.getPosition();
 		} else {
 			songpos = 0;
