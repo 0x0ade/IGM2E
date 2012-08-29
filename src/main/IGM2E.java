@@ -287,15 +287,8 @@ public class IGM2E {
 				hud.render();
 			}
 		}
-		renderFPS(color_fps);
 	}
 		
-	private static void renderFPS(int c) {
-		Font f = new Font("Tahoma", 0, 12); // Tahoma
-		Texture fpst = TextFactory.toTexture(fps+"", c, f, false);
-		render(fpst, 0, 0);
-	}
-	
 	private static void renderOverlay() {
 		Texture t = TextureBank.getTexture("overlay");
 		
