@@ -11,11 +11,6 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	public int w = 0;
 	public int h = 0;
 	
-	public int xo = 0;
-	public int yo = 0;
-	public int wo = 0;
-	public int ho = 0;
-	
 	public ArrayList<Tile> tiles = new ArrayList<Tile>();
 	public ArrayList<Entity> ents = new ArrayList<Entity>();
 	public ArrayList<Tile> tilesrem = new ArrayList<Tile>();
@@ -27,13 +22,13 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	public float jumpf = 1f;
 	
 	public Player player;
-	
-	public ViewportBox vp = new ViewportBox(IGM2E.size);
-	public ViewportBox vpin = new ViewportBox(512, 512);
+	public Camera cam;
 	
 	public Level(int w, int h) {
 		this.w = w;
 		this.h = h;
+		
+		cam = new Camera(this);
 	}
 	
 	/**
@@ -43,11 +38,6 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	public Level(Level level) {
 		w = level.w;
 		h = level.h;
-		
-		xo = level.xo;
-		yo = level.yo;
-		wo = level.wo;
-		ho = level.ho;
 		
 		tiles = level.tiles;
 		ents = level.ents;
@@ -61,8 +51,7 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 		
 		player = level.player;
 		
-		vp = level.vp;
-		vpin = level.vpin;
+		cam = level.cam;
 	}
 	
 	public Level() {
@@ -83,41 +72,8 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	}
 	
 	@Override
-	public void render() {		
-		
-		updateVP();
-		
-		for (Entity rr : ents) {
-			rr.render(-xo, -yo);
-		}
-		
-		for (Tile rr : tiles) {
-			rr.render(-xo, -yo);
-		}
-		
-		for (Entity rr : ents) {
-			rr.renderTop(-xo, -yo);
-		}
-		
-		for (Tile rr : tiles) {
-			rr.renderTop(-xo, -yo);
-		}
-	}
-	
-	public void updateVP() {
-		if (player != null) {
-			vpin.setPlayerPos(player);
-			
-			vp.setPlayerPos(player);
-			
-			// FIXME : Do viewport updating when vpin no more inside of vp - scroll ... 
-			
-		} else {
-		}
-		xo = vp.x;
-		yo = vp.y;
-		wo = vp.width;
-		ho = vp.height;
+	public void render() {
+		cam.render();
 	}
 	
 	@Override

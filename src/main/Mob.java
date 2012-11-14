@@ -74,8 +74,8 @@ public abstract class Mob extends Entity {
 		
 		int ex = e.x;
 		int ey = e.y;
-		int ew = (int) e.getTexture().getImageWidth();
-		int eh = (int) e.getTexture().getImageHeight();
+		int ew = (int) e.getImage().getWidth();
+		int eh = (int) e.getImage().getHeight();
 		
 		checkAI(e, ex, ey, ew, eh, false);
 	}
@@ -91,8 +91,8 @@ public abstract class Mob extends Entity {
 	public ArrayList<Mob> aiothers = new ArrayList<Mob>();
 	
 	public void checkAI(GameObject o, int ox, int oy, int ow, int oh, boolean canpass) {
-		int w = (int) getTexture().getImageWidth();
-		int h = (int) getTexture().getImageHeight();
+		int w = (int) getImage().getWidth();
+		int h = (int) getImage().getHeight();
 		
 		boolean addw = (donespeed>=0);
 		

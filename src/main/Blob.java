@@ -2,6 +2,7 @@ package main;
 
 import java.awt.image.BufferedImage;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 
 public class Blob extends Mob {
@@ -18,21 +19,12 @@ public class Blob extends Mob {
 	}
 	
 	@Override
-	public Texture getTexture() {
+	public Image getImage() {
 		String dir = "2_";
 		if (donespeed < 0) dir = "1_";
 		if (donespeed > 0) dir = "3_";
 		String add = dir+((int)walktick+1);
-		return TextureBank.getTexture("blob_"+add);
-	}
-	
-	@Override
-	public BufferedImage getImage() {
-		String dir = "2_";
-		if (donespeed < 0) dir = "1_";
-		if (donespeed > 0) dir = "3_";
-		String add = dir+((int)walktick+1);
-		return TextureBank.getImage("blob_"+add);
+		return ImageBank.getImage("blob_"+add);
 	}
 	
 }

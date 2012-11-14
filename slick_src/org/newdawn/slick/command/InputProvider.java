@@ -304,9 +304,14 @@ public class InputProvider {
 		 * @see org.newdawn.slick.util.InputAdapter#keyPressed(int, char)
 		 */
 		public void keyPressed(int key, char c) {
-			Command command = (Command) commands.get(new KeyControl(key));
-			if (command != null) {
-				firePressed(command);
+			if (!KeyControl.lastused.containsKey(key)) {
+				return;
+			}
+			for (int i = 0; i < KeyControl.lastused.get(key)+1; i++) {
+				Command command = (Command) commands.get(new KeyControl(key, i));
+				if (command != null) {
+					firePressed(command);
+				}
 			}
 		}
 
@@ -314,9 +319,14 @@ public class InputProvider {
 		 * @see org.newdawn.slick.util.InputAdapter#keyReleased(int, char)
 		 */
 		public void keyReleased(int key, char c) {
-			Command command = (Command) commands.get(new KeyControl(key));
-			if (command != null) {
-				fireReleased(command);
+			if (!KeyControl.lastused.containsKey(key)) {
+				return;
+			}
+			for (int i = 0; i < KeyControl.lastused.get(key)+1; i++) {
+				Command command = (Command) commands.get(new KeyControl(key, i));
+				if (command != null) {
+					fireReleased(command);
+				}
 			}
 		}
 
@@ -346,11 +356,17 @@ public class InputProvider {
 		 * @see org.newdawn.slick.util.InputAdapter#controllerLeftPressed(int)
 		 */
 		public void controllerLeftPressed(int controller) {
-			Command command = (Command) commands
-					.get(new ControllerDirectionControl(controller,
-							ControllerDirectionControl.LEFT));
-			if (command != null) {
-				firePressed(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.LEFT_EVENT, 0);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerDirectionControl(controller,
+								ControllerDirectionControl.LEFT, i));
+				if (command != null) {
+					firePressed(command);
+				}
 			}
 		}
 
@@ -358,11 +374,17 @@ public class InputProvider {
 		 * @see org.newdawn.slick.util.InputAdapter#controllerLeftReleased(int)
 		 */
 		public void controllerLeftReleased(int controller) {
-			Command command = (Command) commands
-					.get(new ControllerDirectionControl(controller,
-							ControllerDirectionControl.LEFT));
-			if (command != null) {
-				fireReleased(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.LEFT_EVENT, 0);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerDirectionControl(controller,
+								ControllerDirectionControl.LEFT, i));
+				if (command != null) {
+					fireReleased(command);
+				}
 			}
 		}
 
@@ -370,11 +392,17 @@ public class InputProvider {
 		 * @see org.newdawn.slick.util.InputAdapter#controllerRightPressed(int)
 		 */
 		public void controllerRightPressed(int controller) {
-			Command command = (Command) commands
-					.get(new ControllerDirectionControl(controller,
-							ControllerDirectionControl.RIGHT));
-			if (command != null) {
-				firePressed(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.RIGHT_EVENT, 0);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerDirectionControl(controller,
+								ControllerDirectionControl.RIGHT, i));
+				if (command != null) {
+					firePressed(command);
+				}
 			}
 		}
 
@@ -382,11 +410,17 @@ public class InputProvider {
 		 * @see org.newdawn.slick.util.InputAdapter#controllerRightReleased(int)
 		 */
 		public void controllerRightReleased(int controller) {
-			Command command = (Command) commands
-					.get(new ControllerDirectionControl(controller,
-							ControllerDirectionControl.RIGHT));
-			if (command != null) {
-				fireReleased(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.RIGHT_EVENT, 0);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerDirectionControl(controller,
+								ControllerDirectionControl.RIGHT, i));
+				if (command != null) {
+					fireReleased(command);
+				}
 			}
 		}
 
@@ -394,22 +428,34 @@ public class InputProvider {
 		 * @see org.newdawn.slick.util.InputAdapter#controllerUpPressed(int)
 		 */
 		public void controllerUpPressed(int controller) {
-			Command command = (Command) commands
-					.get(new ControllerDirectionControl(controller,
-							ControllerDirectionControl.UP));
-			if (command != null)
-				firePressed(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.UP_EVENT, 0);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerDirectionControl(controller,
+								ControllerDirectionControl.UP, i));
+				if (command != null)
+					firePressed(command);
+			}
 		}
 
 		/**
 		 * @see org.newdawn.slick.util.InputAdapter#controllerUpReleased(int)
 		 */
 		public void controllerUpReleased(int controller) {
-			Command command = (Command) commands
-					.get(new ControllerDirectionControl(controller,
-							ControllerDirectionControl.UP));
-			if (command != null) {
-				fireReleased(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.UP_EVENT, 0);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerDirectionControl(controller,
+								ControllerDirectionControl.UP, i));
+				if (command != null) {
+					fireReleased(command);
+				}
 			}
 		}
 
@@ -417,11 +463,17 @@ public class InputProvider {
 		 * @see org.newdawn.slick.util.InputAdapter#controllerDownPressed(int)
 		 */
 		public void controllerDownPressed(int controller) {
-			Command command = (Command) commands
-					.get(new ControllerDirectionControl(controller,
-							ControllerDirectionControl.DOWN));
-			if (command != null) {
-				firePressed(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.DOWN_EVENT, 0);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerDirectionControl(controller,
+								ControllerDirectionControl.DOWN, i));
+				if (command != null) {
+					firePressed(command);
+				}
 			}
 		}
 
@@ -429,11 +481,17 @@ public class InputProvider {
 		 * @see org.newdawn.slick.util.InputAdapter#controllerDownReleased(int)
 		 */
 		public void controllerDownReleased(int controller) {
-			Command command = (Command) commands
-					.get(new ControllerDirectionControl(controller,
-							ControllerDirectionControl.DOWN));
-			if (command != null) {
-				fireReleased(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.DOWN_EVENT, 0);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerDirectionControl(controller,
+								ControllerDirectionControl.DOWN, i));
+				if (command != null) {
+					fireReleased(command);
+				}
 			}
 		}
 
@@ -442,10 +500,16 @@ public class InputProvider {
 		 *      int)
 		 */
 		public void controllerButtonPressed(int controller, int button) {
-			Command command = (Command) commands
-					.get(new ControllerButtonControl(controller, button));
-			if (command != null) {
-				firePressed(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.BUTTON_EVENT, button);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerButtonControl(controller, button, i));
+				if (command != null) {
+					firePressed(command);
+				}
 			}
 		}
 
@@ -454,10 +518,16 @@ public class InputProvider {
 		 *      int)
 		 */
 		public void controllerButtonReleased(int controller, int button) {
-			Command command = (Command) commands
-					.get(new ControllerButtonControl(controller, button));
-			if (command != null) {
-				fireReleased(command);
+			ControllerControl.TriData td = new ControllerControl.TriData(controller, ControllerControl.BUTTON_EVENT, button);
+			if (!ControllerControl.lastused.containsKey(td)) {
+				return;
+			}
+			for (int i = 0; i < ControllerControl.lastused.get(td)+1; i++) {
+				Command command = (Command) commands
+						.get(new ControllerButtonControl(controller, button, i));
+				if (command != null) {
+					fireReleased(command);
+				}
 			}
 		}
 	};

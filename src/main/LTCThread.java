@@ -12,17 +12,11 @@ public class LTCThread {
 	public void start() {
 		if (done) return;
 		cmd.start();
-		IGM2E.removeLTCMD(this);
 		done = true;
 	}
 	
 	public void join() {
-		try {
-			while (!done) {
-				Thread.sleep(1l);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		while (!done) {
 		}
 	}
 	

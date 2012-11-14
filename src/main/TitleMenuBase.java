@@ -1,5 +1,6 @@
 package main;
 
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.opengl.Texture;
 
 public abstract class TitleMenuBase extends MenuBase {
@@ -23,7 +24,7 @@ public abstract class TitleMenuBase extends MenuBase {
 		float maxx = 0;
 		float maxy = ih*getMaxItems();
 		
-		if (IGM2E.keys.enter.wasPressed()) {
+		if (InputHandler.wasDown(InputHandler.ENTER)) {
 			handleItem();
 			cx = cgtx;
 			cy = cgty;
@@ -31,16 +32,16 @@ public abstract class TitleMenuBase extends MenuBase {
 			cgy = 0;
 			return;
 		}
-		if (IGM2E.keys.up.wasPressed()) {
+		if (InputHandler.wasDown(InputHandler.UP)) {
 			cgty = cgty - ih;
 		}
-		if (IGM2E.keys.down.wasPressed()) {
+		if (InputHandler.wasDown(InputHandler.DOWN)) {
 			cgty = cgty + ih;
 		}
-		if (IGM2E.keys.left.wasPressed()) {
+		if (InputHandler.wasDown(InputHandler.LEFT)) {
 			cgtx = cgtx - iw;
 		}
-		if (IGM2E.keys.right.wasPressed()) {
+		if (InputHandler.wasDown(InputHandler.RIGHT)) {
 			cgtx = cgtx + iw;
 		}
 		
@@ -65,12 +66,14 @@ public abstract class TitleMenuBase extends MenuBase {
 		item = (int)((cgty / ih) + ((cgtx / iw)*getMaxItems()));
 	}
 	
+	static UnicodeFont f = Fonts.resizeFont(Fonts.bold, 24);
+	
 	@Override
 	public void render() {
 		float maxx = 0;
 		float maxy = ih*getMaxItems();
 		
-		IGM2E.render(TextureBank.getTexture("cursor"), getX()+cx, getY()+cy);
+		ImageBank.getImage("cursor").draw(getX()+cx, getY()+cy);
 		
 		String[] list = getList();
 		
@@ -79,8 +82,7 @@ public abstract class TitleMenuBase extends MenuBase {
 			int xx = (int)((int)(yy / maxy)%maxx);
 			yy = (int)(yy%maxy);
 			xx = xx + cw + 4;
-			Texture t = TextFactory.toTexture(list[i], 0xffffffff, Resources.Fonts.ubuntub.deriveFont(24f), true);
-			IGM2E.render(t, getX() + xx, getY() + yy);
+			f.drawString(getX() + xx, getY() + yy, list[i]);
 		}
 	}
 	

@@ -1,8 +1,5 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +13,8 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import org.lwjgl.openal.AL10;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.Texture;
@@ -30,8 +29,8 @@ import org.newdawn.slick.util.BufferedImageUtil;
 public class LoadedLevel extends Level {
 
 	public TiledMapPlus tm;
-	public Texture bg;
-	public Texture og;
+	public Image bg;
+	public Image og;
 	public String savename;
 	
 	public LoadedLevel(TiledMapPlus map, String savename) {
@@ -137,145 +136,49 @@ public class LoadedLevel extends Level {
 		}
 		
 		cacheBackground();
+		
+		cam = new LoadedLevelCam(this);
 	}
 
 	public void cacheBackground() {
-		try {
-			String bgs = tm.getMapProperty("background", "cave_16");
-			BufferedImage bgi = TextureBank.getImage(bgs);
-			
-			int w = 256;
-			int h = 256;
-			
-			final BufferedImage bi2 = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g2 = (Graphics2D) bi2.getGraphics();
-			final BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g = (Graphics2D) bi.getGraphics();
-			g.setColor(new Color(0, 0, 0));
-			g.fillRect(0, 0, w, h);
-			for (int x = 0; x < w; x += bgi.getWidth()) {
-				for (int y = 0; y < h; y += bgi.getHeight()) {
-					g.drawImage(bgi, x, y, null);
-				}
-			}
-			g.dispose();
-			g2.setColor(new Color(0, 0, 0));
-			g2.fillRect(0, 0, w, h);
-			g2.drawImage(bi, 0, 0, null);
-			g2.dispose();
-			g = (Graphics2D) bi.getGraphics();
-			g.setColor(new Color(0, 0, 0, 127));
-			g.fillRect(0, 0, w, h);
-			g.dispose();
-			
-			if (Thread.currentThread().getId() != IGM2E.threadId) {
-				LTCommand cmd = new LTCommand() {
-					@Override
-					public String name() {
-						return "Converting Texture for Level BG and outside";
-					}
+		final int w = 256;
+		final int h = 256;
+		
+		OpenGLHelper.run(new OpenGLHelper.Action() {
+			@Override
+			public Object run() throws Throwable {
+				try {
+					String bgs = tm.getMapProperty("background", "cave_16");
+					Image bgi = ImageBank.getImage(bgs);
 					
-					@Override
-					public void handle() {
-						bg = TextureUtil.convert(bi);
-						og = TextureUtil.convert(bi2);
+					og = new Image(w, h);
+					Graphics ogg = og.getGraphics();
+					for (int x = 0; x < w; x += bgi.getWidth()) {
+						for (int y = 0; y < h; y += bgi.getHeight()) {
+							ogg.drawImage(bgi, x, y);
+						}
 					}
-
-					@Override
-					public String loadText() {
-						return "Converting Texture for Level BG and outside";
+					ogg.flush();
+					bg = new Image(w, h);
+					Graphics bgg = bg.getGraphics();
+					for (int x = 0; x < w; x += bgi.getWidth()) {
+						for (int y = 0; y < h; y += bgi.getHeight()) {
+							bgg.drawImage(bgi, x, y, new Color(0.5f, 0.5f, 0.5f));
+						}
 					}
-				};
-				LTCThread t = new LTCThread(cmd);
-				IGM2E.ltcmds.add(t);
-				t.join();
-			} else {
-				bg = TextureUtil.convert(bi);
-				og = TextureUtil.convert(bi2);
+					bgg.flush();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
 			}
-			
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
+		});
 	}
 	
 	@Override
 	public void render() {
-		
-		updateVP();
-		
-		int xoffs = xo % 16;
-		int yoffs = yo % 16;
-		
-		int ww = 256;
-		int hh = 256;
-		
-		//BG LAYER 0 : MAIN
-		for (int x = -ww*2; x < wo+ww*2; x += ww) {
-			for (int y = -hh*2; y < ho+hh*2; y += hh) {
-				int xx = x - (int)((xo % ww) * 0.5);
-				int yy = y - (int)((yo % hh) * 0.5);
-				IGM2E.render(bg, xx, yy);
-			}
-		}
-		
-		//OUTSIDE LEFT
-		for (int x = -ww; x > xo - ww*4 - wo; x -= ww) {
-			for (int y = -((ho - yo) - ((ho-yo) % 32)); y < yo + ho; y += hh) {
-				int xx = x - xo;
-				int yy = y - yo;
-				IGM2E.render(og, xx, yy);
-			}
-		}
-		
-		//OUTSIDE RIGHT
-		for (int x = w; x < w + xo + ww*4 + wo; x += ww) {
-			for (int y = -((ho - yo) - ((ho-yo) % 32)); y < yo + ho; y += hh) {
-				int xx = x - xo;
-				int yy = y - yo;
-				IGM2E.render(og, xx, yy);
-			}
-		}
-		
-		//OUTSIDE TOP
-		for (int x = xo - (xo % 32); x < xo + wo; x += ww) {
-			for (int y = -hh; y > yo - hh*4 - ho; y -= hh) {
-				int xx = x - xo;
-				int yy = y - yo;
-				IGM2E.render(og, xx, yy);
-			}
-		}
-		
-		//OUTSIDE BOTTOM
-		for (int x = xo - (xo % 32); x < xo + wo; x += ww) {
-			for (int y = h; y < h + yo + hh*4 + ho; y += hh) {
-				int xx = x - xo;
-				int yy = y - yo;
-				IGM2E.render(og, xx, yy);
-			}
-		}
-		
-		tm.render(-xoffs, -yoffs, xo/16, yo/16, wo/16+16, ho/16+16, "rendertop", "false", "false");
-		
-		for (Tile rr : tiles) {
-			if (rr.isStatic()) continue;
-			rr.render(-xo, -yo);
-		}
-		
-		for (Entity rr : ents) {
-			rr.render(-xo, -yo);
-		}
-		
-		tm.render(-xoffs, -yoffs, xo/16, yo/16, wo/16+16, ho/16+16, "rendertop", "true", "false");
-		
-		for (Tile rr : tiles) {
-			if (rr.isStatic()) continue;
-			rr.renderTop(-xo, -yo);
-		}
-		
-		for (Entity rr : ents) {
-			rr.renderTop(-xo, -yo);
-		}
+		cam.render();
 	}
 	
 	@Override

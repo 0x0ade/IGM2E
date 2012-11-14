@@ -56,6 +56,7 @@ public class DLCUtil {
 			Class c = i.getClass();
 			if (!(i instanceof IDLCBase)) {
 				System.err.println("Class must extend IDLCBase !");
+				zis.close();
 				return;
 			}
 			IDLCBase iexc = (IDLCBase) i;
@@ -65,9 +66,11 @@ public class DLCUtil {
 			System.out.println(name+" "+version+"\nCan this DLC run ?");
 			System.out.println(canrun);
 			if (canrun.startsWith("No")) {
+				zis.close();
 				return;
 			}
 			inject(iexc);
+			zis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -6,8 +6,6 @@ import java.io.Serializable;
 
 public class ViewportBox extends Rectangle implements Serializable {
 	
-	public boolean moved = false;
-	
 	public ViewportBox(int w, int h) {
 		this(0, 0, w, h);
 	}
@@ -20,10 +18,9 @@ public class ViewportBox extends Rectangle implements Serializable {
 		this(size.width, size.height);
 	}
 	
-	public void setPlayerPos(Player p) {
+	public void setCenter(GameObject p) {
 		x = p.x - width/2;
 		y = p.y - height/2;
-		moved = true;
 	}
 
 	public int containsX(Rectangle r) {

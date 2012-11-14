@@ -1,31 +1,54 @@
 package main;
 
+import java.awt.Font;
+
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.opengl.Texture;
 
 public class TextEntity extends Entity {
 	
-	public String text;
-	public String bold;
-	public String size;
+	public String text = "";
+	protected String bb = "";
+	public String bold = "";
+	protected String ss = "";
+	public String size = "";
 	
 	public TextEntity(Level level, int x, int y) {
 		super(level, x, y);
 	}
-
+	
+	UnicodeFont font;
+	
+	@Override
+	public void tick() {
+		if (	!bb.equals(bold)||
+				!ss.equals(size)) {
+			Font base = Fonts.normal.getFont();
+			if (bold.equals("true")) {
+				base = Fonts.bold.getFont();
+			}
+			base.deriveFont(Float.parseFloat(size));
+			font = new UnicodeFont(base);
+			bb = bold;
+			ss = size;
+		}
+	}
+	
 	@Override
 	public void render(int xo, int yo) {
-		IGM2E.render(getTexture(), xo+x, yo+y);
+		font.drawString(x+xo, y+yo, text);
 	}
 
 	@Override
-	public Texture getTexture() {
-		if (bold.equals("true")) {
-			return TextFactory.toTexture(text, 0xffffffff, Resources.Fonts.ubuntub.deriveFont(Float.parseFloat(size)), true);
-		} else {
-			return TextFactory.toTexture(text, 0xffffffff, Resources.Fonts.ubuntul.deriveFont(Float.parseFloat(size)), true);
+	public Image getImage() {
+		try {
+			return new Image(font.getWidth(text), font.getHeight(text));
+		} catch (SlickException e) {
+			e.printStackTrace();
+			return ImageBank.getImage("empty");
 		}
-		
-		//return TextFactory.toTexture(text, 0xffffffff, true);
 	}
 	
 	@Override

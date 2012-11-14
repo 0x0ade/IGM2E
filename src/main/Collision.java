@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.newdawn.slick.Image;
+
 public class Collision {
 	
 	public static boolean debug = false;
@@ -37,20 +39,7 @@ public class Collision {
 		}
 		Rectangle ix = erx.intersection(or);
 		
-		BufferedImage bi = o.getCollisionImage();
-		
-		int[] data = null;
-		if (bi != null) {
-			data = bi.getRGB(0, 0, ow, oh, data, 0, ow);
-		} else {
-			bi = o.getImage();
-			if (bi != null) {
-				data = bi.getRGB(0, 0, ow, oh, data, 0, ow);
-			} else {
-				bi = TextureUtil.colorImage(0xff000000, ow, oh);
-				data = bi.getRGB(0, 0, ow, oh, data, 0, ow);
-			}
-		}
+		Image bi = o.getCollisionImage();
 		
 		//int xoffs = (int) ix.getX();
 		//int yoffs = (int) ix.getY();
@@ -65,23 +54,15 @@ public class Collision {
 			int xx = (int)(pr.getX() - xoffs);
 			int yy = (int)(pr.getY() - yoffs);
 			
-			if (data[xx + yy * ow] == 0) {
+			if (bi.getColor(xx, yy).a == 0) {
 				if (debug) {
-					try {
-						level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", TextureUtil.colorTexture(0xffffffff, 1, 1)));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xffffff));
 				}
 				continue;
 			}
 			
 			if (debug) {
-				try {
-					level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", TextureUtil.colorTexture(0xff000000, 1, 1)));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0x000000));
 			}
 			
 			prl.add(pr);
@@ -118,20 +99,7 @@ public class Collision {
 	public static boolean overlapps2(Level level, GameObject me, Rectangle er, Rectangle erx, Rectangle or, int x, int y, int w, int h, GameObject o, int ox, int oy, int ow, int oh) {
 		Rectangle ix = erx.intersection(or);
 		
-		BufferedImage bi = o.getCollisionImage();
-		
-		int[] data = null;
-		if (bi != null) {
-			data = bi.getRGB(0, 0, ow, oh, data, 0, ow);
-		} else {
-			bi = o.getImage();
-			if (bi != null) {
-				data = bi.getRGB(0, 0, ow, oh, data, 0, ow);
-			} else {
-				bi = TextureUtil.colorImage(0xff000000, ow, oh);
-				data = bi.getRGB(0, 0, ow, oh, data, 0, ow);
-			}
-		}
+		Image bi = o.getCollisionImage();
 		
 		//int xoffs = (int) ix.getX();
 		//int yoffs = (int) ix.getY();
@@ -146,42 +114,21 @@ public class Collision {
 			int xx = (int)(pr.getX() - xoffs);
 			int yy = (int)(pr.getY() - yoffs);
 			
-			if (data[xx + yy * ow] == 0) {
+			if (bi.getColor(xx, yy).a == 0) {
 				if (debug) {
-					try {
-						level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", TextureUtil.colorTexture(0xffffffff, 1, 1)));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xffffffff));
 				}
 				continue;
 			}
 			
 			if (debug) {
-				try {
-					level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", TextureUtil.colorTexture(0xff000000, 1, 1)));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xff000000));
 			}
 			
 			prl.add(pr);
 		}
 		
-		BufferedImage mbi = me.getCollisionImage();
-		
-		int[] mdata = null;
-		if (mbi != null) {
-			mdata = mbi.getRGB(0, 0, w, h, mdata, 0, w);
-		} else {
-			mbi = me.getImage();
-			if (mbi != null) {
-				mdata = mbi.getRGB(0, 0, w, h, mdata, 0, w);
-			} else {
-				mbi = TextureUtil.colorImage(0xff000000, w, h);
-				mdata = mbi.getRGB(0, 0, w, h, mdata, 0, w);
-			}
-		}
+		Image mbi = me.getCollisionImage();
 		
 		ArrayList<PixelRect> prl2 = PixelRect.getPixelsFromRect(ix);
 		
@@ -192,23 +139,15 @@ public class Collision {
 			int xx = (int)(pr.getX() - xoffs);
 			int yy = (int)(pr.getY() - yoffs);
 			
-			if (data[xx + yy * ow] == 0) {
+			if (mbi.getColor(xx, yy).a == 0) {
 				if (debug) {
-					try {
-						level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", TextureUtil.colorTexture(0xffffffff, 1, 1)));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xffffff));
 				}
 				continue;
 			}
 			
 			if (debug) {
-				try {
-					level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", TextureUtil.colorTexture(0xff000000, 1, 1)));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0x000000));
 			}
 			
 			for (PixelRect pr2 : prl) {

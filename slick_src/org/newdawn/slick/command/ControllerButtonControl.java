@@ -17,4 +17,14 @@ public class ControllerButtonControl extends ControllerControl {
 	public ControllerButtonControl(int controllerIndex, int button) {
 		super(controllerIndex, BUTTON_EVENT, button);
 	}
+	
+	/**
+	 * Create a new control based on a controller input
+	 * 
+	 * @param controllerIndex The index of the controller to listen to
+	 * @param button The index of the button that causes the command
+	 */
+	public ControllerButtonControl(int controllerIndex, int button, int iid) {
+		super(controllerIndex, BUTTON_EVENT, button, iid);
+	}
 }

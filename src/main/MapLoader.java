@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 
@@ -12,15 +13,16 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.tiled.TiledMapPlus;
 import org.newdawn.slick.util.BufferedImageUtil;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class MapLoader {
 	
-	public static void initLevels() {
+	public static void initLevels() throws URISyntaxException {
 		//loadLevel("test", "test");
 		
 		//loadLevel("intro", "intro");
 		
-		File folder = Resources.getResource("/res/levels/");
+		File folder = new File(ResourceLoader.getResource("/res/levels/").toURI());
 		for (File child : folder.listFiles(new FileFilter() {
 			@Override
 			public boolean accept(File file) {

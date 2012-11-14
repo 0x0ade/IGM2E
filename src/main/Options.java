@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import main.Keys.Key;
-
 public class Options {
 	private static Properties properties = new Properties();
     
@@ -29,10 +27,6 @@ public class Options {
 		addProp("vol_bgm", "0.5");
 		addProp("gfx_vsync", "false");
 		addProp("menus_fancy", "true");
-		
-		for (Key key : IGM2E.keys.getAll()) {
-			addProp("key_"+key.name, key.keyCode+"");
-		}
 	}
 	
 	public static void addProp(String key, String newvalue) {
@@ -175,6 +169,39 @@ public class Options {
 				file = new File(s2, (new StringBuilder()).append(".").append(s).append('/').toString());
 			} else {
 				file = new File(s1, (new StringBuilder()).append('.').append(s).append('/').toString());
+			}
+			break;
+
+		case 4: // '\004'
+			file = new File(s1, (new StringBuilder()).append("Library/Application Support/").append(s).toString());
+			break;
+
+		default:
+			file = new File(s1, (new StringBuilder()).append(s).append('/').toString());
+			break;
+		}
+		if (!file.exists() && !file.mkdirs()) {
+			throw new RuntimeException((new StringBuilder()).append("The working directory could not be created: ").append(file).toString());
+		} else {
+			return file;
+		}
+	}
+	
+	public static File getNAppDir(String s) {
+		String s1 = System.getProperty("user.home", ".");
+		File file;
+		switch (EnumOSMappingHelper.enumOSMappingArray[getOs().ordinal()]) {
+		case 1: // '\001'
+		case 2: // '\002'
+			file = new File(s1, (new StringBuilder()).append(s).append('/').toString());
+			break;
+
+		case 3: // '\003'
+			String s2 = System.getenv("APPDATA");
+			if (s2 != null) {
+				file = new File(s2, (new StringBuilder()).append(s).append('/').toString());
+			} else {
+				file = new File(s1, (new StringBuilder()).append(s).append('/').toString());
 			}
 			break;
 

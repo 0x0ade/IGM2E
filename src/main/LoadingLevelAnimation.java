@@ -3,6 +3,9 @@ package main;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.opengl.Texture;
 
 public class LoadingLevelAnimation extends Background {
@@ -23,28 +26,27 @@ public class LoadingLevelAnimation extends Background {
 	public void render() {
 		try {
 			
-			Texture bg = TextureUtil.colorTexture(0xffffff, w, h);
+			Image bg = ImageBank.getImage("white");
 			
-			IGM2E.render(bg, 0, 0);
+			bg.draw(0, 0, w, h, new Color(1f, 1f, 1f));
 			
-			Texture tex = TextureBank.getTexture("miniload_"+tick2);
+			Image tex = ImageBank.getImage("miniload_"+tick2);
 			
 			int x2 = 8;
-			int y2 = h - tex.getTextureHeight() - 8;
+			int y2 = h - tex.getHeight() - 8;
 			
-			IGM2E.render(tex, x2, y2);
+			tex.draw(x2, y2);
 			
 			LTCommand cmd = lt.getCurrent();
 			String text = null;
 			if (cmd != null) text = cmd.loadText();
 			if (text == null) text = "Loading";
-			Font font = Resources.Fonts.ubuntul.deriveFont(10f);
-			Texture texttex = TextFactory.toTexture(text, 0xff113344, font, true);
 			
-			FontRenderContext frc = new FontRenderContext();
-			int textw = (int)(font.getStringBounds(text, frc).getWidth());
+			UnicodeFont f = Fonts.resizeFont(Fonts.normal, 10);
+			f = Fonts.refilter(f, Fonts.newGradient(0x113344));
 			
-			IGM2E.render(texttex, x2+16+8, y2);
+			int textw = (int)(f.getWidth(text));
+			f.drawString(x2+16+8, y2, text);
 		} catch (Exception e) {
 		}
 	}

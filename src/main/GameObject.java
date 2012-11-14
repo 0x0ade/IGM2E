@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 
 public abstract class GameObject implements RRenderable, RTRenderable, Tickable, Serializable, Cloneable {
@@ -16,13 +17,9 @@ public abstract class GameObject implements RRenderable, RTRenderable, Tickable,
 	public int x;
 	public int y;
 	
-	public abstract Texture getTexture();
-	
-	public BufferedImage getImage() {
-		return TextureUtil.convert(getTexture());
-	}
+	public abstract Image getImage();
 
-	public BufferedImage getCollisionImage() {
+	public Image getCollisionImage() {
 		return getImage();
 	}
 	

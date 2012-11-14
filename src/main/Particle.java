@@ -1,5 +1,6 @@
 package main;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 
 public class Particle extends Entity {
@@ -18,8 +19,8 @@ public class Particle extends Entity {
 	}
 
 	@Override
-	public Texture getTexture() {
-		return TextureBank.getTexture("particles_"+type+"_"+id);
+	public Image getImage() {
+		return ImageBank.getImage("particles_"+type+"_"+id);
 	}
 	
 	@Override

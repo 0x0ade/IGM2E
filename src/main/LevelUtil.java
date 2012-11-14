@@ -13,6 +13,7 @@ import org.newdawn.slick.tiled.GroupObject;
 import org.newdawn.slick.tiled.TileSet;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.tiled.TiledMapPlus;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class LevelUtil {
 	
@@ -125,7 +126,7 @@ public class LevelUtil {
 
 	public static TiledMapPlus getTMXLevel(String name) {
 		try {
-			TiledMapPlus map = new TiledMapPlus(Resources.getResourceAsStream("/res/levels/"+name+".tmx"), getTSPath("/res/levels"));
+			TiledMapPlus map = new TiledMapPlus(ResourceLoader.getResourceAsStream("/res/levels/"+name+".tmx"), "/res/levels");
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,13 +134,4 @@ public class LevelUtil {
 		}
 	}
 
-	private static String getTSPath(String levels) {
-		String relative = levels;
-		File absolutef = Options.getTempDir();
-		for (String s : relative.split("/")) {
-			absolutef = new File(absolutef, s);
-		}
-		String absolutes = absolutef.getPath();
-		return absolutes;
-	}
 }

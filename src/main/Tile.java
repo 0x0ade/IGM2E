@@ -29,12 +29,12 @@ public abstract class Tile extends GameObject {
 	
 	@Override
 	public void render(int xo, int yo) {
-		if (!renderTop) IGM2E.render(getTexture(), x+xo, y+yo);
+		if (!renderTop) getImage().draw(x+xo, y+yo);
 	}
 	
 	@Override
 	public void renderTop(int xo, int yo) {
-		if (renderTop) IGM2E.render(getTexture(), x+xo, y+yo);
+		if (renderTop) getImage().draw(x+xo, y+yo);
 	}
 	
 	public boolean collides(Entity e) {

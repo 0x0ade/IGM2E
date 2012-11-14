@@ -11,12 +11,14 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.security.MessageDigest;
 
+import main.IGM2E;
+
 /**
- *	Utility for doing various things like load or save text files or get MD5 checksums . <p>
- *	Unused because this is a JPlayground class and IGM2E has it's own implementation of this ...
- *	oh wait - the JPlayground net package uses it ! :O
+ *	Utility for doing various things like load or save text files or get MD5 checksums . <br>
+ *	Usually avoidd by IGM2E itself.
  *
  */
 public final class ResourceUtil {
@@ -77,7 +79,7 @@ public final class ResourceUtil {
      * Converts the given URL into a file .
      * @param url URL to return
      * @return File that was got with the URL url
-     * @throws IllegalArgumentException if the URL can't be converted to an URI by URISyntaxException ( if this URL is not formatted strictly according to
+     * @throws IllegalArgumentException if the URL can't be converted to an URI by URISyntaxException ( if this URL is not formatted strictly according 
      *		  to RFC2396 and cannot be converted to a URI )
      */
     public static File urlToFile(URL url) throws IllegalArgumentException {
@@ -161,6 +163,17 @@ public final class ResourceUtil {
     	}
     	
     	return result;
+    }
+    
+    public static String getJarPath() {
+    	try {
+    		String path = IGM2E.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+			String decodedPath = URLDecoder.decode(path, "UTF-8");
+			return decodedPath;
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	}
     }
     
 }

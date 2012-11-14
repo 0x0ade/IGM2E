@@ -2,6 +2,8 @@ package main;
 
 import java.io.IOException;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 
 public class Background implements RRenderer, Tickable {
@@ -30,12 +32,8 @@ public class Background implements RRenderer, Tickable {
 
 	@Override
 	public void render() {
-		try {
-			Texture t = TextureUtil.colorTexture(color, w, h);
-			IGM2E.render(t, 0, 0);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Image i = ImageBank.getImage("white");
+		i.draw(0, 0, w, h, new Color(color));
 	}
 
 }

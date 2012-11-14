@@ -2,6 +2,7 @@ package main;
 
 import java.awt.image.BufferedImage;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.tiled.TileSet;
 import org.newdawn.slick.tiled.TiledMapPlus;
@@ -33,9 +34,9 @@ public class GroundTile extends Tile {
 	}
 
 	@Override
-	public Texture getTexture() {
-		Texture t = TextureBank.getTexture(types);
-		return t;
+	public Image getImage() {
+		Image i = ImageBank.getImage(types);
+		return i;
 	}
 	
 	@Override

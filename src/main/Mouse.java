@@ -17,8 +17,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.renderer.SGL;
 
-import main.Keys.Key;
-
 public class Mouse implements Tickable, RRenderer {
 	
 	public class MouseButton {
@@ -71,7 +69,7 @@ public class Mouse implements Tickable, RRenderer {
 	public int drawxo = 10;
 	public int drawyo = 7;
 	
-	public Texture cursor = null;
+	public Image cursor = null;
 	
 	public Mouse() {
 		tick = new long[3];
@@ -111,9 +109,9 @@ public class Mouse implements Tickable, RRenderer {
 	public void render() {
 		if (draw && render) {
 			if (cursor == null) {
-				cursor = TextureBank.getTexture("mouse");
+				cursor = ImageBank.getImage("mouse");
 			}
-			IGM2E.render(cursor, x - drawxo, y - drawyo);
+			cursor.draw(x - drawxo, y - drawyo);
 		}
 	}
 	

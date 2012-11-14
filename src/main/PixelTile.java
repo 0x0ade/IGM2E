@@ -1,15 +1,17 @@
 package main;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.tiled.TileSet;
 
 public class PixelTile extends Tile {
 	
-	public Texture t;
+	public int c;
 	
-	public PixelTile(Level level, int x, int y, TileSet tset, int id, int layer, String layername, Texture t) {
+	public PixelTile(Level level, int x, int y, TileSet tset, int id, int layer, String layername, int c) {
 		super(level, x, y, tset, id, layer, layername);
-		this.t = t;
+		this.c = c;
 		for (Tile tt : level.tiles) {
 			if (!(tt instanceof PixelTile)) continue;
 			if (tt.x == x && tt.y == y) level.remove(tt);
@@ -23,8 +25,11 @@ public class PixelTile extends Tile {
 	}
 	
 	@Override
-	public Texture getTexture() {
-		return t;
+	public Image getImage() {
+		Color cc = new Color(c);
+		Image i = ImageBank.getImage("white").getScaledCopy(1f);
+		i.setImageColor(cc.r, cc.g, cc.b);
+		return i;
 	}
 	
 	@Override

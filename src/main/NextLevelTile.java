@@ -1,5 +1,6 @@
 package main;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.tiled.TileSet;
 import org.newdawn.slick.tiled.TiledMapPlus;
@@ -30,8 +31,8 @@ public class NextLevelTile extends Tile {
 	}
 
 	@Override
-	public Texture getTexture() {
-		return TextureBank.getTexture("exit_tile");
+	public Image getImage() {
+		return ImageBank.getImage("exit_tile");
 	}
 	
 	@Override

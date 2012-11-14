@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 
 public abstract class Entity extends GameObject {
@@ -49,11 +50,11 @@ public abstract class Entity extends GameObject {
 	@Override
 	public void render(int xo, int yo) {
 		if (level.gravity >= 0) {
-			IGM2E.render(getTexture(), xo+x, yo+y);
+			getImage().draw(xo+x, yo+y);
 		} else {
-			int w = getTexture().getTextureWidth();
-			int h = getTexture().getTextureHeight();
-			IGM2E.render(getTexture(), xo+x, yo+y+h, w, -h);
+			int w = getImage().getWidth();
+			int h = getImage().getHeight();
+			getImage().draw(xo+x, yo+y+h, w, -h);
 		}
 	}
 	
@@ -117,15 +118,15 @@ public abstract class Entity extends GameObject {
 		
 		int ex = e.x;
 		int ey = e.y;
-		int ew = (int) e.getTexture().getImageWidth();
-		int eh = (int) e.getTexture().getImageHeight();
+		int ew = (int) e.getImage().getWidth();
+		int eh = (int) e.getImage().getHeight();
 		
 		collide(e, ex, ey, ew, eh, false);
 	}
 	
 	public void collideold(GameObject o, int ox, int oy, int ow, int oh, boolean canpass) {
-		int w = (int) getTexture().getImageWidth();
-		int h = (int) getTexture().getImageHeight();
+		int w = (int) getImage().getWidth();
+		int h = (int) getImage().getHeight();
 		
 		Rectangle ery = new Rectangle(x+1, y, w-2, h);
 		Rectangle erx = new Rectangle(x, y+1, w, h-2);
@@ -158,8 +159,8 @@ public abstract class Entity extends GameObject {
 		boolean tilech = false; // Fixes double-tile.collide(this); when X and Y collide the same tile .
 		int tilelh = 0; // Needed for tile.left(this); to only happen when X and Y won't collide " this tile " .
 		
-		int w = (int) getTexture().getImageWidth();
-		int h = (int) getTexture().getImageHeight();
+		int w = (int) getImage().getWidth();
+		int h = (int) getImage().getHeight();
 		
 		Rectangle er = new Rectangle(x, y, w, h);
 		Rectangle ery = new Rectangle(x+1, y, w-2, h);
@@ -253,8 +254,8 @@ public abstract class Entity extends GameObject {
 		Entity e = new Entity(IGM2E.level, -1, -1) {
 
 			@Override
-			public Texture getTexture() {
-				return null;
+			public Image getImage() {
+				return ImageBank.getImage("empty");
 			}
 			
 		};

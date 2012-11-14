@@ -2,6 +2,7 @@ package main;
 
 import java.awt.image.BufferedImage;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 
 public abstract class Player extends Entity {
@@ -16,21 +17,12 @@ public abstract class Player extends Entity {
 	}
 	
 	@Override
-	public Texture getTexture() {
+	public Image getImage() {
 		String dir = "2_";
 		if (donespeed < 0) dir = "1_";
 		if (donespeed > 0) dir = "3_";
 		String add = dir+((int)walktick+1);
-		return TextureBank.getTexture("player_"+add);
-	}
-	
-	@Override
-	public BufferedImage getImage() {
-		String dir = "2_";
-		if (donespeed < 0) dir = "1_";
-		if (donespeed > 0) dir = "3_";
-		String add = dir+((int)walktick+1);
-		return TextureBank.getImage("player_"+add);
+		return ImageBank.getImage("player_"+add);
 	}
 	
 }

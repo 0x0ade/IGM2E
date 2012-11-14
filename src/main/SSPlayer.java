@@ -19,13 +19,13 @@ public class SSPlayer extends Player {
 		IGM2E.sound_x = x;
 		IGM2E.sound_y = y;
 		
-		if (IGM2E.keys.up.wasPressed() && canJump) {
+		if (InputHandler.isDown(InputHandler.JUMP) && canJump) {
 			jump();
 		}
 		//if (IGM2.instance.keys.left.isDown) gx -= speed;
 		//if (IGM2.instance.keys.right.isDown) gx += speed;
-		if (IGM2E.keys.left.isDown) donespeed = -speed;
-		else if (IGM2E.keys.right.isDown) donespeed = speed;
+		if (InputHandler.isDown(InputHandler.LEFT)) donespeed = -speed;
+		else if (InputHandler.isDown(InputHandler.RIGHT)) donespeed = speed;
 		else donespeed = 0;
 		
 		gx += donespeed;

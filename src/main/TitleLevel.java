@@ -213,7 +213,7 @@ public class TitleLevel extends Level {
 			public void tick() {
 				super.tick();
 				
-				if (IGM2E.keys.left.wasPressed()) {
+				if (InputHandler.wasDown(InputHandler.LEFT)) {
 					switch (item+1) {
 					case 1:
 					case 2:
@@ -227,7 +227,7 @@ public class TitleLevel extends Level {
 					}
 				}
 				
-				if (IGM2E.keys.right.wasPressed()) {
+				if (InputHandler.wasDown(InputHandler.RIGHT)) {
 					switch (item+1) {
 					case 1:
 					case 2:
@@ -291,7 +291,7 @@ public class TitleLevel extends Level {
 			public void tick() {
 				super.tick();
 				
-				if (IGM2E.keys.left.wasPressed()) {
+				if (InputHandler.wasDown(InputHandler.LEFT)) {
 					switch (item+1) {
 					case 1:
 					case 2:
@@ -304,7 +304,7 @@ public class TitleLevel extends Level {
 					}
 				}
 				
-				if (IGM2E.keys.right.wasPressed()) {
+				if (InputHandler.wasDown(InputHandler.RIGHT)) {
 					switch (item+1) {
 					case 1:
 					case 2:
@@ -463,21 +463,21 @@ public class TitleLevel extends Level {
 	public void render() {
 		
 		if (!Options.getAsBoolean("menus_fancy")) {
-			IGM2E.render(TextureBank.getTexture("titlemenu_"+bg_id), 0, 0);
+			ImageBank.getImage("titlemenu_"+bg_id).draw(0, 0);
 		} else {
 			switch (bg_id) {
 			case 1:
-				IGM2E.render(TextureBank.getTexture("titlemenu_"+bg_id), 0, 0);
+				ImageBank.getImage("titlemenu_"+bg_id).draw(0, 0);
 				break;
 			case 2:
-				IGM2E.render(TextureBank.getTexture("titlemenu_2_bg"), 0, 0);
-				IGM2E.render(TextureBank.getTexture("titlemenu_2_l3"), 0, bgoffs.get(2));
-				IGM2E.render(TextureBank.getTexture("titlemenu_2_l2"), 0, bgoffs.get(1));
-				IGM2E.render(TextureBank.getTexture("titlemenu_2_l1"), 0, bgoffs.get(0));
-				IGM2E.render(TextureBank.getTexture("titlemenu_2_overlay"), 0, 0);
+				ImageBank.getImage("titlemenu_2_bg").draw(0, 0);
+				ImageBank.getImage("titlemenu_2_l3").draw(0, bgoffs.get(2));
+				ImageBank.getImage("titlemenu_2_l2").draw(0, bgoffs.get(1));
+				ImageBank.getImage("titlemenu_2_l1").draw(0, bgoffs.get(0));
+				ImageBank.getImage("titlemenu_2_overlay").draw(0, 0);
 				break;
 			default:
-				IGM2E.render(TextureBank.getTexture("titlemenu_"+bg_id), 0, 0);
+				ImageBank.getImage("titlemenu_"+bg_id).draw(0, 0);
 				break;
 			}
 		}
@@ -486,7 +486,7 @@ public class TitleLevel extends Level {
 		
 		menu.render();
 		
-		IGM2E.render(TextureBank.getTexture("title"), 250, 4 + titleoffs);
+		ImageBank.getImage("title").draw(250, 4 + titleoffs);
 	}
 	
 }
