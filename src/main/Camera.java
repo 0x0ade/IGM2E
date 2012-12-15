@@ -44,20 +44,22 @@ public class Camera implements RRenderer {
 	}
 	
 	public void renderImpl() {
-		for (Entity rr : level.ents) {
-			rr.render(-xo, -yo);
-		}
-		
-		for (Tile rr : level.tiles) {
-			rr.render(-xo, -yo);
-		}
-		
-		for (Entity rr : level.ents) {
-			rr.renderTop(-xo, -yo);
-		}
-		
-		for (Tile rr : level.tiles) {
-			rr.renderTop(-xo, -yo);
+		for (LevelLayer layer : level.layers.values()) {
+			for (Entity rr : layer.ents) {
+				rr.render(-xo, -yo);
+			}
+			
+			for (Tile rr : layer.tiles) {
+				rr.render(-xo, -yo);
+			}
+			
+			for (Entity rr : layer.ents) {
+				rr.renderTop(-xo, -yo);
+			}
+			
+			for (Tile rr : layer.tiles) {
+				rr.renderTop(-xo, -yo);
+			}
 		}
 	}
 

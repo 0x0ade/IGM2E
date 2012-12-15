@@ -40,8 +40,9 @@ public abstract class Entity extends GameObject {
 	public float maxHealth;
 	public float health;
 	
-	public Entity(Level level, int x, int y) {
-		this.level = level;
+	public Entity(LevelLayer layer, int x, int y) {
+		this.layer = layer;
+		this.level = layer.level;
 		this.x = x;
 		this.y = y;
 		resetHealth(10);
@@ -74,7 +75,7 @@ public abstract class Entity extends GameObject {
 		if (x != oldx) walktick += 0.25;
 		if (walktick > 3) walktick = 0;
 		
-		checkCollide(level);
+		checkCollide();
 		
 		if (x > level.w-16) {x = level.w-16; gx = 0;}
 		if (x < 0) {x = 0; gx = 0;}
@@ -93,11 +94,11 @@ public abstract class Entity extends GameObject {
 		if (health > maxHealth) health = maxHealth;
 	}
 	
-	public void checkCollide(Level l) {
-		for (Tile t : l.tiles) {
+	public void checkCollide() {
+		for (Tile t : layer.tiles) {
 			collide(t);
 		}
-		for (Entity e : l.ents) {
+		for (Entity e : layer.ents) {
 			collide(e);
 		}
 	}
@@ -171,7 +172,7 @@ public abstract class Entity extends GameObject {
 		doGrav = true;
 		
 		if (erx.intersects(or)) {
-			if (Collision.overlapps(level, this, er, erx, or, x, y, w, h, o, ox, oy, ow, oh)) {
+			if (Collision.overlapps(layer, this, er, erx, or, x, y, w, h, o, ox, oy, ow, oh)) {
 				if (!canpass) {
 					x = oldx;
 					gx = 0;
@@ -194,7 +195,7 @@ public abstract class Entity extends GameObject {
 		}
 		
 		if (ery.intersects(or)) {
-			if (Collision.overlapps(level, this, er, ery, or, x, y, w, h, o, ox, oy, ow, oh)) {
+			if (Collision.overlapps(layer, this, er, ery, or, x, y, w, h, o, ox, oy, ow, oh)) {
 				if (!canpass) {
 					y = oldy;
 					gy = 0;
@@ -251,8 +252,8 @@ public abstract class Entity extends GameObject {
 	}
 	
 	public static Entity getBaseEntity() {
-		Entity e = new Entity(IGM2E.level, -1, -1) {
-
+		Entity e = new Entity(IGM2E.level.layers.get(0), -1, -1) {
+			
 			@Override
 			public Image getImage() {
 				return ImageBank.getImage("empty");

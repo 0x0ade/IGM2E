@@ -19,8 +19,8 @@ import org.newdawn.slick.opengl.Texture;
 
 public abstract class Mob extends Entity {
 	
-	public Mob(Level level, int x, int y) {
-		super(level, x, y);
+	public Mob(LevelLayer layer, int x, int y) {
+		super(layer, x, y);
 		
 		donespeed = speed;
 		jumpf = 5f;
@@ -30,13 +30,13 @@ public abstract class Mob extends Entity {
 	public void tick() {
 		if (level == null) level = IGM2E.level;
 		
-		handleAI(level);
+		handleAI(layer);
 		gx += donespeed;
 		
 		super.tick();
 	}
 	
-	public void handleAI(Level l) {
+	public void handleAI(LevelLayer l) {
 		aijump = true;
 		aijump2 = false;
 		aichangedir = false;

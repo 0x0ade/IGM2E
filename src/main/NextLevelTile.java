@@ -11,8 +11,8 @@ public class NextLevelTile extends Tile {
 	
 	private int tick = 0;
 	
-	public NextLevelTile(Level level, int x, int y, TileSet tset, int id, int layer, String layername) {
-		super(level, x, y, tset, id, layer, layername);
+	public NextLevelTile(LevelLayer layer, int x, int y, TileSet tset, int id, int tlayer, String layername) {
+		super(layer, x, y, tset, id, tlayer, layername);
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class NextLevelTile extends Tile {
 		if (tick > 8) {
 			int px = x + IGM2E.rand.nextInt(17)-4;
 			int py = y + IGM2E.rand.nextInt(17)-4;
-			level.add2(new Particle(level, px, py, "gold", 10));
+			level.add2(new Particle(layer, px, py, "gold", 10));
 			
 			tick = 0;
 		} else {

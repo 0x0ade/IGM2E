@@ -13,8 +13,8 @@ public class GroundTile extends Tile {
 	public Texture fallbackt;
 	public boolean renderTop = false;
 	
-	public GroundTile(Level level, int x, int y, TileSet tset, int id, int layer, String layername) {
-		super(level, x, y, tset, id, layer, layername);
+	public GroundTile(LevelLayer layer, int x, int y, TileSet tset, int id, int tlayer, String layername) {
+		super(layer, x, y, tset, id, tlayer, layername);
 		
 		//types = tset.name+"_"+(tset.getTileX(id) + tset.getTileY(id) * (tset.tilesAcross));
 		int tsetid = 0;

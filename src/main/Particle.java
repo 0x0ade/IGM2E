@@ -1,6 +1,7 @@
 package main;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.opengl.Texture;
 
 public class Particle extends Entity {
@@ -11,8 +12,8 @@ public class Particle extends Entity {
 	public int duration;
 	public int id;
 	
-	public Particle(Level level, int x, int y, String type, int duration) {
-		super(level, x, y);
+	public Particle(LevelLayer layer, int x, int y, String type, int duration) {
+		super(layer, x, y);
 		this.type = type;
 		this.duration = duration;
 		this.id = IGM2E.rand.nextInt(8)+1;
@@ -20,7 +21,13 @@ public class Particle extends Entity {
 
 	@Override
 	public Image getImage() {
-		return ImageBank.getImage("particles_"+type+"_"+id);
+		int dir = 1;
+		if (donespeed < 0) dir = 0;
+		if (donespeed > 0) dir = 1;
+		int frame = (int) walktick;
+		SpriteSheet sheet = (SpriteSheet) ImageBank.getImage("blob");
+		return sheet.getSubImage(frame, dir);
+		//return ImageBank.getImage("particles_"+type+"_"+id);
 	}
 	
 	@Override

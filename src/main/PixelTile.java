@@ -9,10 +9,10 @@ public class PixelTile extends Tile {
 	
 	public int c;
 	
-	public PixelTile(Level level, int x, int y, TileSet tset, int id, int layer, String layername, int c) {
-		super(level, x, y, tset, id, layer, layername);
+	public PixelTile(LevelLayer layer, int x, int y, TileSet tset, int id, int tlayer, String layername, int c) {
+		super(layer, x, y, tset, id, tlayer, layername);
 		this.c = c;
-		for (Tile tt : level.tiles) {
+		for (Tile tt : layer.tiles) {
 			if (!(tt instanceof PixelTile)) continue;
 			if (tt.x == x && tt.y == y) level.remove(tt);
 		}

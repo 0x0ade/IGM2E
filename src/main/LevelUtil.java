@@ -17,17 +17,17 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class LevelUtil {
 	
-	public static Object getTile(Level level, int id, String type, TileSet ts, int x, int y, int layer, String layername)
+	public static Object getTile(Level level, int id, String type, TileSet ts, int x, int y, int layer, String layername, String layerarg)
 			throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		
 		if ((""+ts.name).equals("null")) System.out.println("getTile says ts.name is null !!!");
 		
-		Object o = getTileFor(level, x, y, ts, id, layer, layername, type);
+		Object o = getTileFor(level, x, y, ts, id, layer, layername, type, layerarg);
 		
 		return o;
 	}
 	
-	public static Object getObject(Level level, GroupObject obj, TiledMapPlus map, int groupn, int n) {
+	public static Object getObject(Level level, GroupObject obj, TiledMapPlus map, int groupn, int n, String layerarg) {
 		Object o = null;
 		
 		Class c = getObjectFor(obj, map, groupn, n);
@@ -46,7 +46,7 @@ public class LevelUtil {
 				break;
 			} catch (Throwable e) {
 				try {
-					o = constr.newInstance(level, obj.x - obj.getImage().getWidth(), obj.y - obj.getImage().getHeight(), null, 0, 0, "");
+					o = constr.newInstance(level.layers.get(Integer.parseInt(layerarg)), obj.x - obj.getImage().getWidth(), obj.y - obj.getImage().getHeight(), null, -1, -1, "");
 					break;
 				} catch (Throwable e2) {
 					if (e2.getCause() == null) {
@@ -60,15 +60,15 @@ public class LevelUtil {
 		return o;
 	}
 
-	public static Object getTileFor(Level level, int x, int y, TileSet tset, int id, int layer, String layername, String type) {
+	public static Object getTileFor(Level level, int x, int y, TileSet tset, int id, int layer, String layername, String type, String layerarg) {
 		Object o = null;
 		
 		if (type.equals("tile")) {
 			//TILES
 			if (tset.name.equals("exit_tile")) {
-				o = new NextLevelTile(level, x, y, tset, id, layer, layername);
+				o = new NextLevelTile(level.layers.get(Integer.parseInt(layerarg)), x, y, tset, id, layer, layername);
 			} else {
-				o = new GroundTile(level, x, y, tset, id, layer, layername);
+				o = new GroundTile(level.layers.get(Integer.parseInt(layerarg)), x, y, tset, id, layer, layername);
 			}
 			
 		} else if (type.equals("bg")) {
@@ -80,10 +80,10 @@ public class LevelUtil {
 			System.out.println(id);
 			switch (id) {
 			case 33:
-				o = new SSPlayer(level, x, y);
+				o = new SSPlayer(level.layers.get(Integer.parseInt(layerarg)), x, y);
 				break;
 			case 35:
-				o = new Blob(level, x, y);
+				o = new Blob(level.layers.get(Integer.parseInt(layerarg)), x, y);
 				break;
 			default:
 				break;

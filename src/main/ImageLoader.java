@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.BufferedImageUtil;
@@ -27,22 +28,22 @@ public class ImageLoader {
 		loadImage("/res/ui/cursor.png", "cursor");
 		loadImage("/res/ui/mouse.png", "mouse");
 		loadImage("/res/ui/title.png", "title");
-		loadTilesetFrom("/res/ui/load.png", "load", 64, 64);
-		loadTilesetFrom("/res/ui/miniload.png", "miniload", 16, 16);
+		loadSpritesheet("/res/ui/load.png", "load", 64, 64);
+		loadSpritesheet("/res/ui/miniload.png", "miniload", 16, 16);
 		
 		//TILES
 		loadImage("/res/levels/tiles/exit_tile.png", "exit_tile");
 		
-		loadTilesetFrom("/res/levels/tiles/cave.png", "cave", 16, 16);
-		loadTilesetFrom("/res/levels/tiles/cave_grass.png", "cave_grass", 16, 16);
-		loadTilesetFrom("/res/levels/tiles/cave2.png", "cave2", 16, 16);
-		loadTilesetFrom("/res/levels/tiles/cave_bg.png", "cave_bg", 16, 16);
+		loadSpritesheet("/res/levels/tiles/cave.png", "cave", 16, 16);
+		loadSpritesheet("/res/levels/tiles/cave_grass.png", "cave_grass", 16, 16);
+		loadSpritesheet("/res/levels/tiles/cave2.png", "cave2", 16, 16);
+		loadSpritesheet("/res/levels/tiles/cave_bg.png", "cave_bg", 16, 16);
 		
-		loadTilesetFrom("/res/levels/tiles/spikes.png", "spikes", 16, 16);
+		loadSpritesheet("/res/levels/tiles/spikes.png", "spikes", 16, 16);
 		
 		//ENTITIES / MOBS
-		loadEntity("/res/game/player.png", "player", 16, 16);
-		loadEntity("/res/game/blob.png", "blob", 16, 16);
+		loadSpritesheet("/res/game/player.png", "player", 16, 16);
+		loadSpritesheet("/res/game/blob.png", "blob", 16, 16);
 		
 		//ETC
 		try {
@@ -59,8 +60,9 @@ public class ImageLoader {
 		
 	}
 	
+	
 	/**
-	 * @deprecated Use {@link #loadSpritesheet(String filename, String savename)} instead. <br>
+	 * @deprecated Use {@link #loadSpritesheet(String filename, String savename, int w, int h)} instead. <br>
 	 * <b>WARNING!</b> Will be removed soon!
 	 */
 	private static void loadEntity(String filename, String savename, int w, int h) {
@@ -84,7 +86,7 @@ public class ImageLoader {
 	}
 	
 	/**
-	 * @deprecated Use {@link #loadSpritesheet(String filename, String savename)} instead. <br>
+	 * @deprecated Use {@link #loadSpritesheet(String filename, String savename, int w, int h)} instead. <br>
 	 * <b>WARNING!</b> Will be removed soon!
 	 */
 	private static void loadTilesetFrom(String filename, String savename, int w, int h) {
@@ -100,6 +102,16 @@ public class ImageLoader {
 					ii++;
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadSpritesheet(String filename, String savename, int h, int w) {
+		try {
+			Image i = new Image(TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(filename),GL11.GL_NEAREST));
+			SpriteSheet s = new SpriteSheet(i, w, h);
+			ImageBank.addImage(savename, s);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

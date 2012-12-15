@@ -8,7 +8,7 @@ public abstract class Tile extends GameObject {
 	public int w = 16;
 	public int h = 16;
 	public int id;
-	public int layer;
+	public int tlayer;
 	public String layername;
 	
 	public boolean renderTop = false;
@@ -18,12 +18,13 @@ public abstract class Tile extends GameObject {
 	private boolean overcanpasslogic = false;
 	private boolean canpasslogic = false;
 	
-	public Tile(Level level, int x, int y, TileSet tset, int id, int layer, String layername) {
-		this.level = level;
+	public Tile(LevelLayer layer, int x, int y, TileSet tset, int id, int tlayer, String layername) {
+		this.layer = layer;
+		this.level = layer.level;
 		this.x = x;
 		this.y = y;
 		this.id = id;
-		this.layer = layer;
+		this.tlayer = tlayer;
 		this.layername = layername;
 	}
 	

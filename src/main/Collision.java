@@ -32,10 +32,10 @@ public class Collision {
 	 * @param oh Another's H
 	 * @return true if they collide ( collision images ) , else false 
 	 */
-	public static boolean overlapps(Level level, GameObject me, Rectangle er, Rectangle erx, Rectangle or, int x, int y, int w, int h, GameObject o, int ox, int oy, int ow, int oh) {
+	public static boolean overlapps(LevelLayer layer, GameObject me, Rectangle er, Rectangle erx, Rectangle or, int x, int y, int w, int h, GameObject o, int ox, int oy, int ow, int oh) {
 		if (fast) {
 		} else {
-			overlapps2(level, me, er, erx, or, x, y, w, h, o, ox, oy, ow, oh);
+			overlapps2(layer, me, er, erx, or, x, y, w, h, o, ox, oy, ow, oh);
 		}
 		Rectangle ix = erx.intersection(or);
 		
@@ -56,13 +56,13 @@ public class Collision {
 			
 			if (bi.getColor(xx, yy).a == 0) {
 				if (debug) {
-					level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xffffff));
+					layer.level.add2(new PixelTile(layer, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xffffff));
 				}
 				continue;
 			}
 			
 			if (debug) {
-				level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0x000000));
+				layer.level.add2(new PixelTile(layer, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0x000000));
 			}
 			
 			prl.add(pr);
@@ -96,7 +96,7 @@ public class Collision {
 	 * @param oh Another's H
 	 * @return true if they collide ( collision images ) , else false 
 	 */
-	public static boolean overlapps2(Level level, GameObject me, Rectangle er, Rectangle erx, Rectangle or, int x, int y, int w, int h, GameObject o, int ox, int oy, int ow, int oh) {
+	public static boolean overlapps2(LevelLayer layer, GameObject me, Rectangle er, Rectangle erx, Rectangle or, int x, int y, int w, int h, GameObject o, int ox, int oy, int ow, int oh) {
 		Rectangle ix = erx.intersection(or);
 		
 		Image bi = o.getCollisionImage();
@@ -116,13 +116,13 @@ public class Collision {
 			
 			if (bi.getColor(xx, yy).a == 0) {
 				if (debug) {
-					level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xffffffff));
+					layer.level.add2(new PixelTile(layer, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xffffffff));
 				}
 				continue;
 			}
 			
 			if (debug) {
-				level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xff000000));
+				layer.level.add2(new PixelTile(layer, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xff000000));
 			}
 			
 			prl.add(pr);
@@ -141,13 +141,13 @@ public class Collision {
 			
 			if (mbi.getColor(xx, yy).a == 0) {
 				if (debug) {
-					level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xffffff));
+					layer.level.add2(new PixelTile(layer, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0xffffff));
 				}
 				continue;
 			}
 			
 			if (debug) {
-				level.add2(new PixelTile(level, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0x000000));
+				layer.level.add2(new PixelTile(layer, (int)(pr.getX()), (int)(pr.getY()), null, 0, 0, "", 0x000000));
 			}
 			
 			for (PixelRect pr2 : prl) {

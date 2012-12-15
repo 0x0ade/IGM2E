@@ -58,7 +58,7 @@ public class LoadedLevel extends Level {
 					
 					Object o = null;
 					try {
-						o = LevelUtil.getTile(this, itsid, type, ts, x*16, y*16, layern, layer.name);
+						o = LevelUtil.getTile(this, itsid, type, ts, x*16, y*16, layern, layer.name, map.getLayerProperty(layern, "layer", "0"));
 					} catch (Throwable e) {
 						e.printStackTrace();
 						break;
@@ -98,7 +98,7 @@ public class LoadedLevel extends Level {
 				
 				Object o = null;
 				try {
-					o = LevelUtil.getObject(this, obj, map, groupn, n);
+					o = LevelUtil.getObject(this, obj, map, groupn, n, map.getObjectProperty(groupn, n, "layer", "0"));
 				} catch (Throwable e) {
 					e.printStackTrace();
 					break;

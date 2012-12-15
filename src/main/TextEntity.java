@@ -15,8 +15,8 @@ public class TextEntity extends Entity {
 	protected String ss = "";
 	public String size = "";
 	
-	public TextEntity(Level level, int x, int y) {
-		super(level, x, y);
+	public TextEntity(LevelLayer layer, int x, int y) {
+		super(layer, x, y);
 	}
 	
 	UnicodeFont font;
@@ -52,7 +52,7 @@ public class TextEntity extends Entity {
 	}
 	
 	@Override
-	public void checkCollide(Level l) {
+	public void checkCollide() {
 	}
 	
 	@Override

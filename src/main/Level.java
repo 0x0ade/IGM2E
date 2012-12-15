@@ -3,6 +3,9 @@ package main;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.newdawn.slick.tiled.Layer;
 
 public class Level extends MenuBase implements Cloneable, Serializable {
 	
@@ -11,12 +14,12 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	public int w = 0;
 	public int h = 0;
 	
-	public ArrayList<Tile> tiles = new ArrayList<Tile>();
-	public ArrayList<Entity> ents = new ArrayList<Entity>();
-	public ArrayList<Tile> tilesrem = new ArrayList<Tile>();
-	public ArrayList<Entity> entsrem = new ArrayList<Entity>();
-	public ArrayList<Tile> tilesadd = new ArrayList<Tile>();
-	public ArrayList<Entity> entsadd = new ArrayList<Entity>();
+	public HashMap<Integer, LevelLayer> layers = new HashMap<Integer, LevelLayer>();
+	{
+		for (int i = -100; i < 100; i++) {
+			layers.put(i, new LevelLayer(this));
+		}
+	}
 	public float friction = 0.75f;
 	public float gravity = 0.25f;
 	public float jumpf = 1f;
@@ -39,12 +42,7 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 		w = level.w;
 		h = level.h;
 		
-		tiles = level.tiles;
-		ents = level.ents;
-		tilesrem = level.tilesrem;
-		entsrem = level.entsrem;
-		tilesadd = level.tilesadd;
-		entsadd = level.entsadd;
+		layers = (HashMap<Integer, LevelLayer>) level.layers.clone();
 		friction = level.friction;
 		gravity = level.gravity;
 		jumpf = level.jumpf;
@@ -59,11 +57,11 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	}
 
 	public void add(Tile t) {
-		tiles.add(t);
+		t.layer.tiles.add(t);
 	}
 	
 	public void add(Entity e) {
-		ents.add(e);
+		e.layer.ents.add(e);
 		if (e instanceof Player) if (player == null) player = (Player)e;
 	}
 	
@@ -78,60 +76,63 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	
 	@Override
 	public void tick() {
-		
-		for (Tile tt : tiles) {
-			tt.tick();
+		for (LevelLayer layer : layers.values()) {
+			for (Tile tt : layer.tiles) {
+				tt.tick();
+			}
+			
+			for (Entity tt : layer.ents) {
+				tt.tick();
+			}
+			
+			for (Tile tt : layer.tilesrem) {
+				layer.tiles.remove(tt);
+			}
+			layer.tilesrem.clear();
+			
+			for (Entity tt : layer.entsrem) {
+				layer.ents.remove(tt);
+			}
+			layer.entsrem.clear();
+			
+			for (Tile tt : layer.tilesadd) {
+				layer.tiles.add(tt);
+			}
+			layer.tilesadd.clear();
+			
+			for (Entity tt : layer.entsadd) {
+				layer.ents.add(tt);
+			}
+			layer.entsadd.clear();
 		}
-		
-		for (Entity tt : ents) {
-			tt.tick();
-		}
-		
-		for (Tile tt : tilesrem) {
-			tiles.remove(tt);
-		}
-		tilesrem.clear();
-		
-		for (Entity tt : entsrem) {
-			ents.remove(tt);
-		}
-		entsrem.clear();
-		
-		for (Tile tt : tilesadd) {
-			tiles.add(tt);
-		}
-		tilesadd.clear();
-		
-		for (Entity tt : entsadd) {
-			ents.add(tt);
-		}
-		entsadd.clear();
 		
 	}
 	
 	public void add2(Tile t) {
-		tilesadd.add(t);
+		t.layer.tilesadd.add(t);
 	}
 	
 	public void add2(Entity e) {
-		entsadd.add(e);
+		e.layer.entsadd.add(e);
 	}
 	
 	public void remove(Entity e) {
-		entsrem.add(e);
+		e.layer.entsrem.add(e);
 	}
 	
 	public void remove(Tile t) {
-		tilesrem.add(t);
+		t.layer.tilesrem.add(t);
 	}
 	
 	public void resetMap() {
-		for (Tile rr : tiles) {
-			rr.reset();
-		}
-		
-		for (Entity rr : ents) {
-			rr.reset();
+		for (LevelLayer layer : layers.values()) {
+			for (Tile rr : layer.tiles) {
+				rr.reset();
+			}
+			
+			for (Entity rr : layer.ents) {
+				rr.reset();
+			}
 		}
 	}
 	
@@ -146,19 +147,18 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	 */
 	public void uninit() {
 		int i = 0;
-		
-		i = 0;
-		for (Tile rr : tiles) {
-			rr.level = null;
-			tiles.set(i, rr);
-			i++;
-		}
-		
-		i = 0;
-		for (Entity rr : ents) {
-			rr.level = null;
-			ents.set(i, rr);
-			i++;
+		for (LevelLayer layer : layers.values()) {
+			i = 0;
+			for (Tile rr : layer.tiles) {
+				rr.level = null;
+				i++;
+			}
+			
+			i = 0;
+			for (Entity rr : layer.ents) {
+				rr.level = null;
+				i++;
+			}
 		}
 		
 		if (player != null) {
@@ -178,19 +178,18 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	 */
 	public void reinit() {
 		int i = 0;
-		
-		i = 0;
-		for (Tile rr : tiles) {
-			rr.level = this;
-			tiles.set(i, rr);
-			i++;
-		}
-		
-		i = 0;
-		for (Entity rr : ents) {
-			rr.level = this;
-			ents.set(i, rr);
-			i++;
+		for (LevelLayer layer : layers.values()) {
+			i = 0;
+			for (Tile rr : layer.tiles) {
+				rr.level = this;
+				i++;
+			}
+			
+			i = 0;
+			for (Entity rr : layer.ents) {
+				rr.level = this;
+				i++;
+			}
 		}
 		
 		if (player != null) {
@@ -209,19 +208,18 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	 */
 	public void prepareSave() {
 		int i = 0;
-		
-		i = 0;
-		for (Tile rr : tiles) {
-			rr.prepareSave();
-			tiles.set(i, rr);
-			i++;
-		}
-		
-		i = 0;
-		for (Entity rr : ents) {
-			rr.prepareSave();
-			ents.set(i, rr);
-			i++;
+		for (LevelLayer layer : layers.values()) {
+			i = 0;
+			for (Tile rr : layer.tiles) {
+				rr.prepareSave();
+				i++;
+			}
+			
+			i = 0;
+			for (Entity rr : layer.ents) {
+				rr.prepareSave();
+				i++;
+			}
 		}
 		
 	}
@@ -236,19 +234,18 @@ public class Level extends MenuBase implements Cloneable, Serializable {
 	 */
 	public void unprepareSave() {
 		int i = 0;
-		
-		i = 0;
-		for (Tile rr : tiles) {
-			rr.unprepareSave();
-			tiles.set(i, rr);
-			i++;
-		}
-		
-		i = 0;
-		for (Entity rr : ents) {
-			rr.unprepareSave();
-			ents.set(i, rr);
-			i++;
+		for (LevelLayer layer : layers.values()) {
+			i = 0;
+			for (Tile rr : layer.tiles) {
+				rr.unprepareSave();
+				i++;
+			}
+			
+			i = 0;
+			for (Entity rr : layer.ents) {
+				rr.unprepareSave();
+				i++;
+			}
 		}
 		
 	}

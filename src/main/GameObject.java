@@ -16,6 +16,7 @@ public abstract class GameObject implements RRenderable, RTRenderable, Tickable,
 	public Level level;
 	public int x;
 	public int y;
+	public LevelLayer layer;
 	
 	public abstract Image getImage();
 

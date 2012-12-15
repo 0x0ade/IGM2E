@@ -10,8 +10,8 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.opengl.Texture;
 
 public class SSPlayer extends Player {
-	public SSPlayer(Level level, int x, int y) {
-		super(level, x, y);
+	public SSPlayer(LevelLayer layer, int x, int y) {
+		super(layer, x, y);
 	}
 	
 	@Override

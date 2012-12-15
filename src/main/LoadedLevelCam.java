@@ -69,24 +69,28 @@ public class LoadedLevelCam extends Camera {
 		
 		level.tm.render(-xoffs, -yoffs, xo/16, yo/16, wo/16+16, ho/16+16, "rendertop", "false", "false");
 		
-		for (Tile rr : level.tiles) {
-			if (rr.isStatic()) continue;
-			rr.render(-xo, -yo);
-		}
-		
-		for (Entity rr : level.ents) {
-			rr.render(-xo, -yo);
+		for (LevelLayer layer : level.layers.values()) {
+			for (Tile rr : layer.tiles) {
+				if (rr.isStatic()) continue;
+				rr.render(-xo, -yo);
+			}
+			
+			for (Entity rr : layer.ents) {
+				rr.render(-xo, -yo);
+			}
 		}
 		
 		level.tm.render(-xoffs, -yoffs, xo/16, yo/16, wo/16+16, ho/16+16, "rendertop", "true", "false");
 		
-		for (Tile rr : level.tiles) {
-			if (rr.isStatic()) continue;
-			rr.renderTop(-xo, -yo);
-		}
-		
-		for (Entity rr : level.ents) {
-			rr.renderTop(-xo, -yo);
+		for (LevelLayer layer : level.layers.values()) {
+			for (Tile rr : layer.tiles) {
+				if (rr.isStatic()) continue;
+				rr.renderTop(-xo, -yo);
+			}
+			
+			for (Entity rr : layer.ents) {
+				rr.renderTop(-xo, -yo);
+			}
 		}
 	}
 	
